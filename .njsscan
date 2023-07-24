@@ -1,7 +1,0 @@
----
-- nodejs-extensions:
-  - .js
-
-  ignore-paths:
-  - node_modules
-  - test
