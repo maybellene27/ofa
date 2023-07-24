@@ -1,0 +1,48 @@
+{% extends "./base.njk" %}
+
+{% block content %}
+    <div class="l--body">
+        <img style="display: none" class="l--title--logo" src='cid:app-logo'/>
+        {% if logo %}
+            <img class="l--title--logo" src='cid:app-logo1'/>
+        {% endif %}
+        <h2>
+            Dear {{userObject.firstName}} {{userObject.lastName}},
+        </h2>
+        <h2>
+            We are glad to inform you that your bank has been selected by the customer 
+            for his/her auto loan application. 
+        </h2>
+        <br/>
+        <h3>Name of Customer: {{customer.firstName}} {{customer.lastName}}</h3>
+        <h3>Brand: {{ vehicle.brand }}</h3>
+        <h3>Model: {{ vehicle.model }}</h3>
+        <h3>Variant: {{ vehicle.variant }}</h3>
+        <h3>Body Conversion: {{ obj.vehiclePurchased.bodyConversion }}</h3>
+        <h3>Year: {{ vehicle.year }}</h3>
+        <h2>For further details you may contact the following:</h2>
+        <h3>Sales Executive Name: <span style="color: grey">{{ salesExecutive.firstName }} {{ salesExecutive.lastName }}</span></h3>
+        <h3>Email: <span style="color: grey">{{ salesExecutive.email }}</span></h3>
+        <h3>Contact: <span style="color: grey">{{ salesExecutive.mobile }} / {{ salesExecutive.telephone }}</span></h3>
+        <br/>
+        <h2>
+            Sincerely,
+        </h2>
+        <h2>
+            AC Motors Team
+        </h2>
+        <br/>
+        <br/>
+        <h3 class="thick">--Please DO NOT REPLY as this is a system generated message. </h3>
+        <p>
+            This email and any files transmitted with it are confidential and intended solely for the use by or information 
+            of the individual or entity to whom they are addressed. If you are not the intended recipient, you are notified 
+            that disclosing, copying, distributing or taking any action based on the contents of this information is strictly prohibited. 
+            If you have received this email in error or is not the intended recipient, please notify the sender by return email and delete 
+            this e-mail (together with any files transmitted with it) immediately. 
+            Unless otherwise expressly stated in this email, any views or opinions presented in this email are solely those of the sender 
+            and do not necessarily represent those of AC Motors and all companies under it. 
+            AC Motors accepts no liability for any damage caused by any virus transmitted via this email.
+        </p>
+    </div>
+{% endblock %}

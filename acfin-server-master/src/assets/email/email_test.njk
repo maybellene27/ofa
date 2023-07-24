@@ -1,0 +1,19 @@
+{% extends "./base.njk" %}
+
+{% block content %}
+    <div class="l--body">
+        <div class="l--title">
+            <img class="l--title--logo" src='cid:app-logo'/>
+        </div>
+    
+        <h1>{{appData.title}}</h1>
+
+        <h2>
+            Hi, ACMOTORS Admin.
+        </h2>
+
+        <h3>This email is sent to test the mailing capabilities of {{appData.title}} at <span style="color: blue">{{ip}}</span>.</h3>
+    
+    </div>
+{% endblock %}
+                 

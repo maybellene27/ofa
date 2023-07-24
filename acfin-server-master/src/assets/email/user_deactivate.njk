@@ -1,0 +1,38 @@
+{% extends "./base.njk" %}
+
+{% block content %}
+    <div class="l--body">
+        <img style="display: none" class="l--title--logo" src='cid:app-logo'/>
+        <h2>
+            Dear {{userObject.firstName}} {{userObject.lastName}},
+        </h2>
+        <h2>
+            This is to inform you that your account has been deactivated. 
+        </h2>
+        <br/>
+        <h2> For any concerns, please contact the following admins:</h2>
+        <h2 style="color: blue">sulian.of@isuzualabang.com</h2>
+        <h2 style="color: blue"> isd-appdev@isuzualabang.com</h2>
+        <br/>
+        <h2>
+            Sincerely,
+        </h2>
+        <h2>
+            AC Motors Team
+        </h2>
+        <br/>
+        <br/>
+        <h3 class="thick">--Please DO NOT REPLY as this is a system generated message. </h3>
+        <p>
+            This email and any files transmitted with it are confidential and intended solely for the use by or information 
+            of the individual or entity to whom they are addressed. If you are not the intended recipient, you are notified 
+            that disclosing, copying, distributing or taking any action based on the contents of this information is strictly prohibited. 
+            If you have received this email in error or is not the intended recipient, please notify the sender by return email and delete 
+            this e-mail (together with any files transmitted with it) immediately. 
+            Unless otherwise expressly stated in this email, any views or opinions presented in this email are solely those of the sender 
+            and do not necessarily represent those of AC Motors and all companies under it. 
+            AC Motors accepts no liability for any damage caused by any virus transmitted via this email.
+        </p>
+    </div>
+{% endblock %}
+                 

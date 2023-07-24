@@ -1,0 +1,15 @@
+{% extends "./base.njk" %}
+
+{% block content %}
+    <div class="l--body">
+        <img class="l--title--logo" src='cid:app-logo'/>
+
+        <h2>
+            Hello {{userObject.firstName}} {{userObject.lastName}},
+        </h2>
+
+        <h2>Your application was Approved and Unreleased.</h2>
+        <br/>
+        <h3>This is an auto-generated message. For any concerns, please contact the administrator</h3>
+    </div>
+{% endblock %}

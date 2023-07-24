@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{{ appData.title | title }}</title>
+        <style>
+            body {
+                color: #003333;
+                margin: 0;
+                
+            }
+            h2 {
+                font-family: Cambria, Georgia, serif;
+                font-weight: 400;
+                font-size: 14px
+            }
+            h1, h3, h4, h5, .title-text {
+                font-family: Cambria, Georgia, serif;
+                font-weight: 400;
+                font-size: 14px
+            }
+            img {
+                height: 50px;
+                width: 100px;
+            }
+            h3, h4, h5 {
+                margin: 0;
+            } 
+
+            p, label, input, td {
+                font-family: Cambria, Georgia, serif;
+                font-style: italic;
+                font-size: 9px
+            }
+
+            a {
+                text-decoration: none;
+                color: blue;
+                font-family: Cambria, Georgia, serif;;
+                font-size: 14px;
+            }
+
+            .fixed {
+                font-family: Cambria, Georgia, serif;;
+                display: inline;
+            }
+            
+            .thick {
+                font-weight: bold;
+                font-size: 12px;
+            }
+            button, a{
+                cursor: pointer;
+            }
+
+            .btn{
+                color: whitesmoke;
+                background: #0811EE;
+                padding: 7px 15px;
+                border-radius: 7px;
+                border: none;
+                cursor: pointer;
+                font-family: Cambria, Georgia, serif;;
+                font-size: 20px;
+            }
+
+            .l--confirm-button{
+                text-align: center;
+                width: 15%;
+                margin: auto;
+                margin-top: 30px;
+            }
+
+            .l--header{
+                background-color: #003333;
+                color: whitesmoke;
+                display: flex;
+                padding: 5px 10px;
+                font-size: 130%;
+                justify-content: space-between;
+                position: fixed;
+                position: fixed;
+                left:0;
+                right:0;
+                top:0;
+                z-index: 2;
+                padding:20px;
+            }
+
+            .l--body{
+                margin-top:50px;
+                margin-bottom:80px;
+                text-align: left
+            }
+
+            .l--footer {
+                position: fixed;
+                left:0;
+                right:0;
+                bottom:0;
+                background-color: #003333;
+                color: whitesmoke;
+                padding: 2%;
+                z-index: 2;
+            }
+
+            .l--title--logo{
+                height: 50px;
+                width: 100px;
+            }
+        </style>
+    </head>
+
+    <body>
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>
