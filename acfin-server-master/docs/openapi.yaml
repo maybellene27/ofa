@@ -1,0 +1,2400 @@
+openapi: 3.0.0
+info:
+  title: acfin API
+  description: API documentation for the <code>acfin</code> backend codebase.
+  version: 0.0.1
+  contact:
+    name: API Support
+    url: http://maroonstudios.com
+    email: support@maroonstudios.com
+servers:
+  - url: http://localhost:3001/webapi
+    description: Local instance
+  - url: http://13.251.87.120/webapi
+    description: Development (DEV) instance
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Models:
+      type: string
+      enum:
+      - agency
+      - agenda
+    Roles:
+      type: string
+      enum:
+      - admin
+      - guest
+    CellphoneNumber:
+      type: array
+      items:
+        type: string
+      example: ['09191234567']
+    GeneralError:
+      type: object
+      properties:
+        message:
+          type: string
+    SmoketestEmail:
+      type: object
+      properties:
+        message:
+          type: string
+          default: "Test email should have been sent."
+    SmoketestUserCount:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "This count may include users for internal purposes."
+        userCount:
+          type: integer
+          format: int32
+          example: 3
+    User:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - designation
+        - institution
+        - department
+        - email
+        - userRole
+      properties:
+        firstName:
+          type: string
+          example: 'John'
+        middleName:
+          type: string
+          example: 'Smith'
+        lastName:
+          type: string
+          example: 'Doe'
+        suffix:
+          type: string
+          example: 'II'
+        designation:
+          type: string
+          example: 'Researcher'
+        institution:
+          type: string
+          example: '604734c93b166d47a0db9da1'
+        department:
+          type: string
+          example: 'R&D'
+        email:
+          type: string
+          example: 'johndoe@email.com'
+        cellphoneNumber:
+          $ref: '#/components/schemas/CellphoneNumber'
+        userRole:
+          type: string
+          example: 'user'
+    UserInfo:
+      type: object
+      required:
+        - info
+      properties:
+        info:
+          $ref: '#/components/schemas/UserInfo'
+    Institution:
+      type: object
+      required:
+        - name
+        - type
+      properties:
+        name:
+          type: string
+          example: 'Some Private Corporation'
+        type:
+          type: string
+          enum:
+          - 'Government'
+          - 'Research Development Institution'
+          - 'Private Company'
+          example: 'Research Development Institution'
+    Agency:
+      type: object
+      required:
+        - agencyName
+        - region
+        - province
+        - cityOrMunicipality
+        - barangay
+        - addressLineOne 
+        - firstName 
+        - lastName 
+        - position 
+        - postalCode
+      properties:
+        agencyName:
+          type: string
+          example: 'Some Agency Name'
+        agencyAcronym:
+          type: string
+          example: 'Some Agency Acronym'
+        agencyType:
+          type: string
+          enum: [ 'Main Branch', 'Satellite' ]
+          example: 'Main Branch'
+        region:
+          type: string
+          example: '604734c93b166d47a0db9db1'
+        province:
+          type: string
+          example: '604734c93b166d47a0db9db2'
+        cityOrMunicipality:
+          type: string
+          example: '604734c93b166d47a0db9db3'
+        barangay:
+          type: string
+          example: '604734c93b166d47a0db9db4'
+        addressLineOne:
+          type: string
+          example: 'Some address line'
+        addressLineTwo:
+          type: string
+          example: 'Some address line'
+        salutation:
+          type: string
+          example: 'Mr.'
+          enum: ["Mr.","Mrs.","Miss","Dr.","Ms.","Prof.","Rev.","Lady","Sir","Capt.","Major","Lt.-Col.","Col.","Lady","Lt.-Cmdr.","The Hon.","Cmdr.","Flt. Lt.","Brgdr.","Judge","Lord","The Hon. Mrs","Wng. Cmdr.","Group Capt.","Rt. Hon. Lord","Revd. Father","Revd Canon","Maj.-Gen.","Air Cdre.","Viscount","Dame","Rear Admrl.","Dir.","Hon."]
+        firstName:
+          type: string
+          example: 'John'
+        middleName:
+          type: string
+          example: 'F.'
+        lastName:
+          type: string
+          example: 'Doe'
+        suffix:
+          type: string
+          example: 'Jr.'
+        position:
+          type: string
+          example: 'Sample position in company'
+        emailAddress: 
+          type: string
+          example: 'johndoe@gmail.com'
+        landlineOrFax:
+          type: string
+          example: 'Sample landline or fax'
+        backAccountNumber: 
+          type: string
+          example: '1001001234'
+        backBranch:
+          type: string
+          example: 'Sample bank branch'
+        accountName:
+          type: string
+          example: 'John Doe'
+        postalCode:
+          type: string
+          example: '1000'
+        budgetOfficerOrAccountant:
+          type: object
+          required:
+            - firstName
+            - lastName
+          properties:
+            salutation:
+              type: string
+              example: 'Mr.'
+              enum: ["Mr.","Mrs.","Miss","Dr.","Ms.","Prof.","Rev.","Lady","Sir","Capt.","Major","Lt.-Col.","Col.","Lady","Lt.-Cmdr.","The Hon.","Cmdr.","Flt. Lt.","Brgdr.","Judge","Lord","The Hon. Mrs","Wng. Cmdr.","Group Capt.","Rt. Hon. Lord","Revd. Father","Revd Canon","Maj.-Gen.","Air Cdre.","Viscount","Dame","Rear Admrl.","Dir.","Hon."]
+            firstName:
+              type: string
+              example: 'Johnny'
+            middleName:
+              type: string
+              example: 'F.'
+            lastName:
+              type: string
+              example: 'Doe'
+            suffix:
+              type: string
+              example: 'Jr.'
+        headOfResearch:
+          type: object
+          required:
+            - firstName
+            - lastName
+          properties:
+            salutation:
+              type: string
+              example: 'Mr.'
+              enum: ["Mr.","Mrs.","Miss","Dr.","Ms.","Prof.","Rev.","Lady","Sir","Capt.","Major","Lt.-Col.","Col.","Lady","Lt.-Cmdr.","The Hon.","Cmdr.","Flt. Lt.","Brgdr.","Judge","Lord","The Hon. Mrs","Wng. Cmdr.","Group Capt.","Rt. Hon. Lord","Revd. Father","Revd Canon","Maj.-Gen.","Air Cdre.","Viscount","Dame","Rear Admrl.","Dir.","Hon."]
+            firstName:
+              type: string
+              example: 'Jeff'
+            middleName:
+              type: string
+              example: 'F.'
+            lastName:
+              type: string
+              example: 'Doe'
+            suffix:
+              type: string
+              example: 'Jr.'
+            designation:
+              type: string
+              example: 'Sample designation'
+        auditorDetails:
+          type: object
+          required:
+            - firstName
+            - lastName
+          properties:
+            salutation:
+              type: string
+              example: 'Mr.'
+              enum: ["Mr.","Mrs.","Miss","Dr.","Ms.","Prof.","Rev.","Lady","Sir","Capt.","Major","Lt.-Col.","Col.","Lady","Lt.-Cmdr.","The Hon.","Cmdr.","Flt. Lt.","Brgdr.","Judge","Lord","The Hon. Mrs","Wng. Cmdr.","Group Capt.","Rt. Hon. Lord","Revd. Father","Revd Canon","Maj.-Gen.","Air Cdre.","Viscount","Dame","Rear Admrl.","Dir.","Hon."]
+            firstName:
+              type: string
+              example: 'Jess'
+            middleName:
+              type: string
+              example: 'F.'
+            lastName:
+              type: string
+              example: 'Doe'
+            suffix:
+              type: string
+              example: 'Jr.'
+            designation:
+              type: string
+              example: 'Sample designation'
+    Agenda:
+      type: object
+      required:
+        - commodityType
+        - commodity
+        - systems
+      properties:
+        commodityType:
+          type: string
+          example: 'Sample Commodity type'
+        commodity:
+          type: string
+          example: 'Corn Industry'
+          enum: ["Corn Industry","Cassava Industry","Adlay Industry","Crop Industry","Biofuel Industry","Vegetables, Leguems, and Rootcrops Industry","Fruit Industry","Poultry and Livestock Industry","Apiculture Industry","Aquaculture Industry","Capture Fisheries Industry"]
+        systems:
+          type: array
+          items:
+            type: object
+            required:
+              - system
+              - problems
+            properties:
+              system:
+                type: string
+                example: 'Sample system'
+              problems:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - problem
+                    - reseachableAreas
+                  properties:
+                    problem:
+                      type: string
+                      example: 'Sample problem'
+                    reseachableAreas:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                          - reseachableArea
+                          - expectedOutputs
+                        properties:
+                          reseachableArea:
+                            type: string
+                            example: 'Sample researchable Area'
+                          expectedOutputs:
+                            type: array
+                            items:
+                              type: object
+                              required:
+                                - expectedOutput
+                                - possibleImplementingAgencies
+                              properties:
+                                expectedOutput:
+                                  type: string
+                                  example: 'Sample expected output'
+                                possibleImplementingAgencies:
+                                  type: array
+                                  example: ['Sample possible implementing agency one']
+                                  items:
+                                    type: string
+                                timelines:
+                                  type: object
+                                  required:
+                                    - yearFrom
+                                    - yearTo
+                                  properties:
+                                    yearFrom:
+                                      type: string
+                                      example: '2020'
+                                    yearTo:
+                                      type: string
+                                      example: '2022'
+    UserApprover:
+      type: object
+      properties:
+        action:
+          type: string
+          example: 'Recommend'
+          enum: [ 'Recommend', 'Approve', 'Endorse', 'Validate' ]
+    ProposalApproveAndEndorse:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        action:
+          $ref: '#/components/schemas/UserApprover'
+    ProposalRecommend:
+      type: object
+      properties:
+        mainFocalPerson:
+          $ref: '#/components/schemas/User'
+        action:
+          $ref: '#/components/schemas/UserApprover'
+        researchType:
+          type: string
+          example: 'Technology Commercialization'
+          enum: ['Technology Commercialization','Institutional Development','Socio-economic','Basic/strategic and applied']
+        coFocalPerson:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    Project:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        action:
+          $ref: '#/components/schemas/UserApprover'
+    Proposal:
+      type: object
+      required:
+        - projectTitle
+      properties:
+        projectTitle:
+          type: string
+          example: 'Sample project title'
+        researchType:
+          type: string
+          example: "Technology Commercialization"
+          enum: ["Technology Commercialization", "Institutional Development", "Socio-economic", "Basic/strategic and applied"] 
+        project:
+          type: object
+          properties:
+            leader:
+              type: string
+              example: '60a6228e6c133444e4104815'
+            teamMembers:
+              type: array
+              items:
+                type: string
+              example: ['60a6228e6c133444e4104815']
+            contactDetails:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: 'sample@gmail.com'
+                landline:
+                  type: string
+                  example: '7891234'
+                fax:
+                  type: string
+                  example: '1234'
+                mobile:
+                  type: string
+                  example: '09321234567'
+        implementingAgencyOrLeadAgency:
+          type: object
+          properties:
+            agency:
+              type: string
+              example: '60a6228d6c133444e410470f'
+            headOfAgency:
+              type: string
+              example: 'John D. Doe'
+            agencyContactDetails:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: 'sample@gmail.com'
+                landline:
+                  type: string
+                  example: '7891234'
+                fax:
+                  type: string
+                  example: '1234'
+                mobile:
+                  type: string
+                  example: '09321234567'
+        collaboratingAgency:
+          type: object
+          properties:
+            collaboratingAgency:
+              type: array
+              items:
+                type: string
+              example: ['60a6228e6c133444e4104815']
+            rationale:
+              type: string
+              example: 'Sample rationale'
+        partnerFarmerCooperativesAndAssociations:
+          type: array
+          items:
+            type: string
+          example: ['Sample partner farmer cooperative']
+        projectDuration:
+          type: object
+          properties:
+            years:
+              type: number
+              example: 5
+            months:
+              type: number
+              example: 7
+        projectSiteOrLocation:
+          type: array
+          items:
+            type: object
+            properties:
+              region:
+                type: string
+                example: '60a621f7d21b17068c6a1e4b'
+              province:
+                type: string
+                example: '60a621f7d21b17068c6a1e4d'
+              cityOrMunicipality:
+                type: string
+                example: '60a621f7d21b17068c6a1e50'
+              barangay:
+                type: string
+                example: '60a621f7d21b17068c6a1e53'
+        projectFunding:
+          type: object
+          properties:
+            totalBudgetRequirement:
+              type: number
+              example: 200.00
+            budgetRequested:
+              type: number
+              example: 100.00
+            agencyConterpart:
+              type: number
+              example: 100.00
+        rdeAgendaAddressed:
+          type: object
+          properties:
+            commodityTypes:
+              type: array
+              items:
+                type: string 
+                example: ['60a621f7d21b17068c6a1e22']
+            commodities:
+              type: array
+              items:
+                type: string 
+                example: ['Corn Industry']
+            researchableAreas:
+              type: array
+              items:
+                type: string 
+                example: ['Sample researchable areas']
+        daLevelIndicators:
+          type: array
+          items:
+            type: string
+            example: ['Production-related R&D activities']
+            enum: [ "Production-related R&D activities", "Postharvest-related R&D activities", "Market-related R&D activities", "Extension-related R&D activities", "Policy-related R&D activities", "Upgrading Research Facilities", "Not Applicable" ]
+        oneDA12KeyStrategies:
+          type: array
+          items:
+            type: string
+            example: ['Infrastructure Investments']
+            enum: [ "Infrastructure Investments", "Post-Harvest, Processing Logistics, & Marketing Support", "Digital Agriculture", "Climate Change Adaptation & Mitigation Measures", "Mobilization & Empowerment of Partners to Attain Scale", "Global Trade, Export Development, & Promotion ", "Food Safety & Regulations ", "Ease of Doing Business & Transparent Procurement ", "Strategic Communication Support ", "Not Applicable" ]
+        barR4DStrategies:
+          type: array
+          items:
+            type: string
+            example: ['Innovative Production & Postproduction Technologies w/ Farm-level & Industry Application']
+            enum: [ "Innovative Production & Postproduction Technologies w/ Farm-level & Industry Application", "Development of Sustainable Robust & Technology-based Agri-enterprises", "Responsive Technology-based Support Services & other enabling Systems/Services", "Not Applicable" ]
+        expectedOutputs:
+          type: string
+          example: 'Sample expected outputs'
+        expectedTechnologyOrInformation:
+          type: string
+          example: 'Sample Expected Technology or Information'
+        descriptionOfTechnologyOrInformation:
+          type: string
+          example: 'Sample Description of Technology or Information'
+        targetBeneficiariesOrUsers:
+          type: array
+          items:
+            type: string
+            example: ['sample target beneficiary']
+        tagsOrKeywords:
+          type: array
+          items:
+            type: string
+            example: ['sample tags or keywords']
+        potentialImpactOfTechnology:
+          type: string
+          example: 'Sample Potential Impack of Technology'
+        potentialIPR:
+          type: string
+          example: 'Patent'
+          enum: [ "Patent", "Utility Model", "Trademark", "Not Applicable " ]
+        iprDescription:
+          type: string
+          example: 'Sample IPR Description'
+        applicationDate:
+          type: string
+          pattern: /([0-9]{4})-(?:[0-9]{2})-([0-9]{2})/
+          example: '2021-05-21'
+        profileOfTheFCA:
+          type: object
+          properties:
+            name:
+              type: string
+              example: 'Sample name of the FCA'
+            typeOfCollaborator:
+              type: string
+              example: 'Farmer Cooperative/Association'
+              enum: [ "Farmer Cooperative/Association", "State University/College", "National/Regional Government Agency/Institution", "Private Sector/Business Sector", "NGO/CSO" ]
+            numberOfCooperativeOrAssociationMembers:
+              type: number
+              example: 5
+            natureOfFCA:
+              type: string
+              example: 'Sample Nature of FCA'
+            backgroundOfFCA:
+              type: string
+              example: 'Sample Background of FCA'
+            resourceRequirements:
+              type: array
+              items:
+                type: object
+                properties:
+                  resourceRequirement:
+                    type: string
+                    example: 'Firm Infrastructure (Facilities)'
+                    enum: [ "Firm Infrastructure (Facilities)", "Equipment", "Human Resource", "Inputs", "Operations", "Outbound logistics - include all the activities required to collect, store,and distribute the output", "Marketing &Sales - activities inform buyers about products and services, induce buyers to purchase them, and facilitate their purchase.", "Services and Trainings" ]
+                  description:
+                    type: string
+                    example: 'Sample description'
+                  monetaryValue:
+                    type: number
+                    example: 100.00 
+            appendices:
+              type: array
+              items: 
+                $ref: '#/components/schemas/Attachment'
+        rationale:
+          type: object
+          properties:
+            rationale:
+              type: string
+              example: 'Sample Rationale'
+            problemStatement:
+              type: string
+              example: 'Sample Problem Statement'
+            pestleOrSwot:
+              type: string
+              example: 'Sample Pestle or SWOT'
+        deliverables:
+          type: object
+          properties:
+            goal:
+              type: object
+              properties:
+                narrativeStatement:
+                  type: string
+                  example: 'Sample Narrative Statement'
+                indicators:
+                  type: string
+                  example: 'Sample Indicators'
+                baseLine:
+                  type: string
+                  example: 'Sample Baseline'
+                target:
+                  type: string
+                  example: 'Sample Target'
+                meansOfVerification:
+                  type: string
+                  example: 'Sample Means of Verification'
+                riskOrAssumptions:
+                  type: string
+                  example: 'Sample Risk or Assumptions'
+            generalObjectivesOrPurposes:
+              type: object
+              properties:
+                generalObjectivesOrPurpose:
+                  type: object
+                  properties:
+                    generalObjectivesOrPurpose:
+                      type: string
+                      example: 'Sample General Objectives Or Purpose'
+                    indicators:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          indicator:
+                            type: string
+                            example: 'Sample indicator'
+                          baseLine:
+                            type: number
+                            example: 10 
+                          target:
+                            type: number
+                            example: 20 
+                          meansOfVerification:
+                            type: string
+                            example: 'Sample means of verifications'
+                          riskOrAssumptions:
+                            type: string
+                            example: 'Sample risk or assumptions'
+                      # example: "[ { indicator: 'Sample indicator', baseLine: 2 , target: 5, meansOfVerification: 'Sample of Means of Verification', riskOrAssumptions: 'Sample Risk or Assumptions' } ]"
+                specificObjectives:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      specificObjective:
+                        type: string
+                        example: 'Sample Specific Objective'
+                      indicators:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            indicator:
+                              type: string
+                              example: 'Sample indicator'
+                            baseLine:
+                              type: number
+                              example: 10
+                            target:
+                              type: number
+                              example: 20
+                            meansOfVerification:
+                              type: string
+                              example: 'Sample means of verifications'
+                            riskOrAssumptions:
+                              type: string
+                              example: 'Sample risk or assumptions'
+                            expectedOutputsPerObjective:
+                              type: string
+                              example: 'Sample expected outputs per objective'
+                            scopeAndLimitationsOrConstraints:
+                              type: string
+                              example: 'Sample scope and limitiations or constraints'
+        reviewOfLiterature:
+          type: array
+          items:
+            type: object
+            properties:
+              topic:
+                type: string
+                example: 'Sample topic'
+              subTopics:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    subTopic:
+                      type: string
+                      example: 'Sample subtopic'
+                    bodyText:
+                      type: string
+                      example: 'Sample body text'
+                    references:
+                      type: string
+                      example: 'Sample references'
+        methodology:
+          type: array
+          items:
+            type: object
+            properties:
+              objective:
+                type: string
+                example: 'objective'
+              methodology:
+                type: string
+                example: 'methodology'
+              responsiblePersons:
+                type: array
+                items:
+                  type: string
+                  example: ['John Doe', 'Joanna Dowie']
+              resourcesRequired:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    resourceRequirement:
+                      type: string
+                      enum: [ "Firm Infrastructure (Facilities)", "Equipment", "Human Resource", "Inputs", "Operations", "Outbound logistics - include all the activities required to collect, store,and distribute the output", "Marketing &Sales - activities inform buyers about products and services, induce buyers to purchase them, and facilitate their purchase.", "Services and Trainings" ]
+                      example: ['Firm Infrastructure (Facilities)']
+                    description:
+                      type: string
+                      example: 'Sample description'
+                    monetaryValue:
+                      type: string
+                      example: 'Sample monetary value'
+              budgetRequired:
+                type: string
+                example: 'Sample budget required'
+              activities:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    activity:
+                      type: string
+                      example: 'Sample activity'
+                    year:
+                      type: string
+                      example: '2021'
+                    startQuarter:
+                      type: string
+                      enum: [ 'Q1', 'Q2', 'Q3', 'Q4' ]
+                      example: 'Q1'
+                    endQuarter:
+                      type: string
+                      enum: [ 'Q1', 'Q2', 'Q3', 'Q4' ]
+                      example: 'Q4'
+        budgetSummary:
+          type: object
+          properties:
+            administrativeCost:
+              type: object
+              properties:
+                year:
+                  type: object
+                  properties:
+                    year:
+                      type: string
+                      example: '2021'
+                    quarters:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          quarter:
+                            type: string
+                            enum: [ 'Q1', 'Q2', 'Q3', 'Q4' ]
+                            example: 'Q1'
+                          cost:
+                            type: number
+                            example: 100
+
+        sustainabilityPlan:
+          type: string
+          example: 'Sample Sustainability Plan'
+        backgroundOfTheTechnology:
+          type: object
+          properties:
+            backgroundOfTheTechnology:
+              type: string
+              example: 'Sample background of the technology'
+            technicalResearch:
+              type: string
+              example: 'Sample technical research'
+            conceptualTest:
+              type: string
+              example: 'Sample conceptual test'
+            laboratoryProductionTest:
+              type: string
+              example: 'Sample laboratory production test'
+            consumerPreferenceStudy:
+              type: string
+              example: 'Sample consumer preference study'
+            productPositioningOrProductAttributeAnalysisStudy:
+              type: string
+              example: 'Sample product positioning or product attribute analysis study'
+            marketStudy:
+              type: string
+              example: 'Sample market study'
+            storeCheck:
+              type: string
+              example: 'Sample store check'
+            competitorAnalysis:
+              type: string
+              example: 'Sample competitor analysis'
+            supplyAndDemandAnalysis:
+              type: string
+              example: 'Sample supply and demand analysis'
+            financialAnalysis:
+              type: string
+              example: 'Sample financial analysis'
+            financialViability:
+              type: array
+              items:
+                $ref: '#/components/schemas/Attachment'
+        businessPlan:
+          type: object
+          properties:
+            businessPlan:
+              type: string
+              example: 'Sample business plan'
+            executiveSummary:
+              type: string
+              example: 'Sample executive summary'
+            industryAndBusinessProfile:
+              type: object
+              properties:
+                industryAndBusinessProfile:
+                  type: string
+                  example: 'Sample industry and business profile'
+                industryAnalysisOrTrendsOrStudies:
+                  type: string
+                  example: 'Sample industry analysis or trends or studies'
+                firmAndItsEnvironment:
+                  type: string
+                  example: 'Sample firm and its environment'
+                currentPositionAndOutlook:
+                  type: string
+                  example: 'Sample current position and outlook'
+                visionMissionGoalsOfTheBusiness:
+                  type: object
+                  properties:
+                    visionMissionGoalsOfTheBusiness:
+                      type: string
+                      example: 'Sample vision mission goals of the business'
+                    vision:
+                      type: string
+                      example: 'Sample vision'
+                    mission:
+                      type: string
+                      example: 'Sample mission'
+                    goals:
+                      type: string
+                      example: 'Sample goals'
+                strategies:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      strategy:
+                        type: string
+                        example: 'Sample strategy'
+                      location:
+                        type: string
+                        example: 'Sample location'
+                      layoutOfThePhysicalStoreIfApplicable:
+                        $ref: '#/components/schemas/Attachment'
+                swot:
+                  type: object
+                  properties:
+                    strengthsWeaknessesOpportunitiesAndThreatsOfTheBusiness:
+                      type: object
+                      properties:
+                        strengths:
+                          type: string
+                          example: 'Sample strengths'
+                        weaknesses:
+                          type: string
+                          example: 'Sample weaknesses'
+                        opportunities:
+                          type: string
+                          example: 'Sample oppotunities'
+                        threatsOfTheBusiness:
+                          type: string
+                          example: 'Sample threats of the business'
+                    competitorAnalysis:
+                      type: string
+                      example: 'Sample competitor analysis'
+                businessModel:
+                  type: object
+                  properties:
+                    businessModel:
+                      type: string
+                      example: 'Sample business model'
+                    valuePropositions:
+                      type: string
+                      example: 'Sample value propositions'
+                    customerSegments:
+                      type: string
+                      example: 'Sample customer segments'
+                    customerRelationships:
+                      type: string
+                      example: 'Sample customer relationships'
+                    channels:
+                      type: string
+                      example: 'Sample channels'
+                    keyActivities:
+                      type: string
+                      example: 'Sample key activities'
+                    keyResources:
+                      type: string
+                      example: 'Sample key resources'
+                    keyPartners:
+                      type: string
+                      example: 'Sample key partners'
+                    costStructure:
+                      type: string
+                      example: 'Sample cost structure'
+                    revenueStreams:
+                      type: string
+                      example: 'Sample revenue streams'
+            marketingPlan:
+              type: object
+              properties:
+                marketingPlan:
+                  type: string
+                  example: 'Sample marketing plan'
+                industryAndMarketTrends:
+                  type: string
+                  example: 'Sample industry and market trends'
+                customerAnalysis:
+                  type: string
+                  example: 'Sample customer analysis'
+                salesAndRevenueGoals:
+                  type: string
+                  example: 'Sample sales and revenue goals'
+                marketingStrategy:
+                  type: object
+                  properties:
+                    marketingStrategy:
+                      type: string
+                      example: 'Sample marketing strategy'
+                    price:
+                      type: string
+                      example: '1000'
+                    promotion:
+                      type: string
+                      example: 'Sample promotion'
+                    segmentation:
+                      type: string
+                      example: 'Sample segmentation'
+                marketingAndSalesExpenses:
+                  type: string
+                  example: 'Sample marketing and sales expenses'
+                distributionEnergy:
+                  type: string
+                  example: 'Sample distribution energy'
+            humanResourcesOrManagementPlan:
+              type: object
+              properties:
+                humanResourcesOrManagementPlan:
+                  type: string
+                  example: 'Sample human resources or management plan'
+                formOfOwnerShip:
+                  type: string
+                  example: 'Sample form of ownership'
+                staffingStructureOrdecisionMaking:
+                  type: string
+                  example: 'Sample staffing structure or decision making'
+                compensationAndBenefitPackages:
+                  type: string
+                  example: 'Sample compensation and benefit packages'
+                trainingAndDevelopment:
+                  type: string
+                  example: 'Sample training and development'
+                timetableForImplementationPlanAndLaunchingTheBusiness:
+                  type: string
+                  example: 'Sample timetable for implementation plan and launching the business'
+            productionPlan:
+              type: object
+              properties:
+                productionPlan:
+                  type: string
+                  example: 'Sample production plan'
+                productOrServiceFeatures:
+                  type: string
+                  example: 'Sample product or service features'
+                customerBenefits:
+                  type: string
+                  example: 'Sample customer benefits'
+                productionSchedule:
+                  type: string
+                  example: 'Sample production schedule'
+                productionCosts:
+                  type: string
+                  example: 'Sample prodcution costs'
+                facilities:
+                  type: string
+                  example: 'Sample facilities'
+                capitalExpenditures:
+                  type: string
+                  example: 'Sample capital expenditures'
+                equipmentAndAnnualDepreciationCost:
+                  type: string
+                  example: 'Sample equipment and annual depreciation cost'
+            financialPlan:
+              type: object
+              properties:
+                financialPlan:
+                  type: string
+                  example: 'Sample financial plan'
+                completeFinancialStatements:
+                  type: object
+                  properties:
+                    completeFinancialStatements:
+                      type: string
+                      example: 'Sample complete financial statements'
+                    assumptionsAndSummary:
+                      type: string
+                      example: 'Sample assumptions and summary'
+                    proFormaIncomeStatements:
+                      $ref: '#/components/schemas/Attachment'
+                    balanceSheet:
+                      $ref: '#/components/schemas/Attachment'
+                    cashFlow:
+                      $ref: '#/components/schemas/Attachment'
+                    salesAndProjectedRevenueModel:
+                      type: string
+                      example: 'Sample sales and projected revenue model'
+                    loanSummary:
+                      type: string
+                      example: 'Sample loan summary'
+                    financialPerformanceIndicators:
+                      type: string
+                      example: 'Sample financial performance indicators'
+            longRangePlanAndOtherAnalysis:
+              type: string
+              example: 'Sample long range plan and other analysis'
+            documentaryRequirementsSuchAsMOAConformeAgreements:
+              type: string
+              example: 'Sample documentary requirement such as MOA conforme agreements'
+            conclusion:
+              type: string
+              example: 'Sample conclusion'
+            references:
+              type: array
+              items:
+                type: string
+              example: [ 'Sample references' ]
+        estimatedVolumeOfProduction:
+          type: number
+          example: 10
+        financialIndicators:
+          type: object
+          properties:
+            sellingPrice:
+              type: number
+              example: 100
+            annualSalesVolume:
+              type: number
+              example: 200
+            averageAnnualNetIncome:
+              type: number
+              example: 300
+            investmentCost:
+              type: number
+              example: 400
+            returnOfInvestment:
+              type: number
+              example: 500
+        typeOfIDG:
+          type: array
+          items:
+            type: string
+            enum: [ "Facility", "Equipment", "Both" ]
+          example: ['Facility']
+        budgetaryRequirementForm:
+          $ref: '#/components/schemas/Attachment'
+        existingNeedsGapAnalysisMatrix:
+          $ref: '#/components/schemas/Attachment'
+        completeListOfExistingFacilitiesAndEquipment:
+          $ref: '#/components/schemas/Attachment'
+        photosOfExistingFacilitiesForRenovationAndOrEquipmentForRepair:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attachment'
+        programOfWorks:
+          $ref: '#/components/schemas/Attachment'
+        workingDrawings:
+          $ref: '#/components/schemas/Attachment'
+        detailedBudgetEstimates:
+          $ref: '#/components/schemas/Attachment'
+        focalPersons:
+          type: object
+          properties:
+            mainFocalPerson:
+              type: string
+              example: '60a6228e6c133444e4104815'
+            coFocalPerson:
+              type: array
+              items:
+                type: string
+                example: ['60a6228d6c133444e410470b']
+        expert:
+          type: array
+          items:
+            type: string
+        programAssigned:
+          type: string
+          enum: [ "Rice", "Climate Change", "Corn", "High Value", "Organic Agriculture", "Biotechnology", "Institutional Development", "Technology Commercialization", "ACEF", "Livestock and Poultry", "AFMA" ]
+          example: 'Rice'
+        projectStatus:
+          type: string
+          enum: [ "inDrafts", "submitted" ]
+          example: 'inDrafts'
+    Attachment:
+      type: object
+      properties:
+        fieldname:
+          type: string
+        originalname:
+          type: string
+        encoding:
+          type: string
+        mimetype:
+          type: string
+        destination:
+          type: string
+        filename:
+          type: string
+        path:
+          type: string
+        size:
+          type: number
+
+security:
+  - bearerAuth: []
+paths:
+  /utilities/test:
+    get:
+      tags:
+        - smoketest
+      summary: Returns a generic test message.
+      responses:
+        '200':
+          description: "Hello, world!"
+          content:
+            application/json:
+              schema: 
+                type: string
+                default: "Hello, world!"
+  /utilities/emailtest:
+    get:
+      tags:
+        - smoketest
+      summary: Returns a message that an email has been sent to a hard-coded email address.
+      responses:
+        '200':
+          description: "Test email should have been sent."
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/SmoketestEmail'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/GeneralError'
+  /utilities/usercount:
+    get:
+      tags:
+        - smoketest
+      summary: Returns a message with the total number of users currently in the database.
+      responses:
+        '200':    # status code
+          description: A message with the total number of users
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/SmoketestUserCount'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/GeneralError'
+  /user/account/generatetoken:
+    post:
+      tags:
+        - Authentication
+      summary: Create JWT token with username and password.
+      operationId: userLogin
+      description: Login with username and password and creates a session.
+      responses:
+        '200':
+          description: 'User has logged in.'
+        '400':
+          description: Invalid input.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+            example:
+              username: 'user@mail.com'
+              password: 'maroon12345'
+        description: Login with username and password.
+  /{_model}:
+    get:
+      tags:
+        - CRUD
+      summary: View all models.
+      operationId: viewAll
+      description: Views all models from the database.
+      parameters:
+        - in: path
+          name: _model
+          description: Model name.
+          required: true
+          schema:
+            $ref: '#/components/schemas/Models'
+        - in: query
+          name: key
+          description: Pass an optional key for looking up models. <code>value</code> must be supplied for it to work.
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: value
+          description: Pass an optional value for looking up models. <code>key</code> must be supplied for it to work.
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: advancedQuery
+          description: Pass an optional query string to show matching models. Make sure that your JSON Object is URIEncoded.
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sortBy
+          description: An optional query to sort data view by the passed value.
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: asc
+          description: Pass <code>1</code> if sort data in an ascending order, <code>0</code> if descending.
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 1
+        - in: query
+          name: total
+          description: Pass <code>true</code> to display count of results, <code>false</code> to hide.
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: start
+          description: Number of records to skip for pagination.
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - in: query
+          name: count
+          description: Maximum number of records to return.
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - in: query
+          name: dataView
+          description: Toggle data view based on passed settings.
+          example: 'default'
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: search
+          description: Pass optional search string for looking up models from database.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Total Count and Object/s in JSON format.
+        '400':
+          description: Invalid input.
+    post:
+      tags:
+        - CRUD
+      summary: Creates new models.
+      operationId: create
+      description: Creates a new model on the database.
+      parameters:
+        - in: path
+          name: _model
+          description: Model name.
+          required: true
+          schema:
+            $ref: '#/components/schemas/Models'
+      responses:
+        '201':
+          description: 'Created an entry for `_model`.'
+        '400':
+          description: 'Error in creating `_model`.'
+        '409':
+          description: '`_model` name already exists.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/Institution'
+        description: _model to be created and added to the database.
+  /{_model}/{_id}:
+    get:
+      tags:
+        - CRUD
+      summary: View a model record.
+      operationId: view
+      description: View a specific model record from the database.
+      parameters:
+        - in: path
+          name: _model
+          description: Pass model name.
+          required: true
+          schema:
+            $ref: '#/components/schemas/Models'
+        - in: path
+          name: _id
+          description: Pass model ID.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Model Object in JSON format.
+        '400':
+          description: Invalid input.
+    patch:
+      tags:
+        - CRUD
+      summary: Updates a model record.
+      operationId: update
+      description: Updates a model record from the database.
+      parameters:
+        - in: path
+          name: _model
+          description: Pass model name.
+          required: true
+          schema:
+            $ref: '#/components/schemas/Models'
+        - in: path
+          name: _id
+          description: Pass model ID.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Record has been successfully updated.'
+        '400':
+          description: Invalid input, Object invalid.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/Institution'
+        description: Model record to be updated.
+    delete:
+      tags:
+        - CRUD
+      summary: Deletes a model record, depending on the application settings.
+      operationId: delete
+      description: Flags model record as 'deleted'.
+      parameters:
+        - in: path
+          name: _model
+          description: Pass model name.
+          required: true
+          schema:
+            $ref: '#/components/schemas/Models'
+        - in: path
+          name: _id
+          description: Pass model ID.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '`_model` has been flagged as deleted.'
+        '400':
+          description: Invalid input.
+  /{_model}/multiple/delete:
+    post:
+      tags:
+        - CRUD
+      summary: Deletes multiple records.
+      operationId: deleteMany
+      description: Deletes multiple records on the database.
+      parameters:
+        - in: path
+          name: _model
+          description: Model name.
+          required: true
+          schema:
+            $ref: '#/components/schemas/Models'
+      responses:
+        '200':
+          description: Delete count and deletion success message.
+        '400':
+          description: Invalid input.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+              example: 
+                ids: ["6048388de6ec144d7ca19d2f", "60472aa1baca9e0aa89f8ea2", "604b0c38eea14e24c05c202c"]
+  /user/account/verify/:_verifiableInfo:
+    get:
+      tags:
+        - Authentication
+      summary: Verify user email.
+      operationId: verify
+      description: Verify user email.
+      responses:
+        '200':
+          description: 'User email has been verified.'
+        '400':
+          description: 'Incorrect verifiable information.'
+  /user/myprofile:
+    get:
+      tags:
+        - Profile
+      summary: View user profile.
+      operationId: viewProfile
+      description: View user profile.
+      responses:
+        '200':
+          description: Object/s in JSON format.
+        '400':
+          description: 'User is not found'
+    patch:
+      tags:
+        - Profile
+      summary: Updates user profile.
+      operationId: updateProfile
+      description: Updates user profile.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/UserInfo'
+        description: Model record to be updated.
+      responses:
+        '200':
+          description: 'User has been updated.'
+        '400':
+          description: Invalid input, Object invalid.
+  /user/password/requestchange:
+    post:
+      tags:
+        - Password
+      summary: Sends request for password change.
+      operationId: requestChange
+      description: Sends request for password change.
+      responses:
+        '200':
+          description: OTP sent through email or mobile.
+        '400':
+          description: Error.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+            example:
+              password: '1234567890'
+  /user/password/change:
+    post:
+      tags:
+        - Password
+      summary: Change password for the user.
+      operationId: change
+      description: Change password for the user.
+      responses:
+        '200':
+          description: 'Password was successfully changed.'
+        '400':
+          description: Invalid input, Object invalid.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+            example:
+              username: 'johndoe@email.com'
+              password: '1234567890'
+              otp: '271829'
+  /user/password/forgot:
+    post:
+      tags:
+        - Password
+      summary: Sends request for password reset.
+      operationId: requestReset
+      description: Sends request for password reset.
+      responses:
+        '200':
+          description: OTP sent through email or mobile.
+        '400':
+          description: Error.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+            example:
+              username: 'janedoe@email.com'
+  /user/password/requestreset:
+    post:
+      tags:
+        - Password
+      summary: Sends request for password reset.
+      operationId: requestReset2
+      description: Sends request for password reset.
+      responses:
+        '200':
+          description: OTP sent through email or mobile.
+        '400':
+          description: Error.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+            example:
+              username: 'janedoe@email.com'
+  /user/password/reset:
+    get:
+      tags:
+        - Password
+      summary: Reset password for the user.
+      operationId: reset
+      description: Reset password for the user.
+      responses:
+        '200':
+          description: 'User successfully verified reset password OTP.'
+        '400':
+          description: Invalid input.
+      parameters:
+        - in: query
+          name: username
+          description: Username.
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: otp
+          description: One time password.
+          required: true
+          schema:
+            type: string
+  /attachment/user/id/front/{_id}:
+    post:
+      tags:
+        - Attachment
+      summary: Upload front ID for Proponent and Expert
+      operationId: uploadIDFront
+      description: Upload front ID for Proponent and Expert
+      responses:
+        '200':
+          description: 'User uploaded ID.'
+      parameters:
+        - in: path
+          name: _id
+          description: ObjectID of User.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                idPicture.front:
+                  type: string
+                  format: binary
+    get:
+      tags:
+        - Attachment
+      summary: Download front ID for Proponent and Expert
+      operationId: downloadIDFront
+      description: Download front ID for Proponent and Expert
+      responses:
+        '200':
+          description: 'User downloaded image.'
+      parameters:
+        - in: path
+          name: _id
+          description: ObjectID of User.
+          required: true
+          schema:
+            type: string
+  /attachment/user/id/back/{_id}:
+    post:
+      tags:
+        - Attachment
+      summary: Upload back ID for Proponent and Expert
+      operationId: uploadIDBack
+      description: Upload back ID for Proponent and Expert
+      responses:
+        '200':
+          description: 'User uploaded ID.'
+      parameters:
+        - in: path
+          name: _id
+          description: ObjectID of User.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                idPicture.front:
+                  type: string
+                  format: binary
+    get:
+      tags:
+        - Attachment
+      summary: Download back ID for Proponent and Expert
+      operationId: downloadIDBack
+      description: Download back ID for Proponent and Expert
+      responses:
+        '200':
+          description: 'User downloaded image.'
+      parameters:
+        - in: path
+          name: _id
+          description: ObjectID of User.
+          required: true
+          schema:
+            type: string
+  /attachment/{_model}/{_id}/{_fieldName}:
+    post:
+      tags:
+        - Attachment
+      summary: Upload file for a model.
+      operationId: uploadFile
+      description: Upload file for a model.
+      responses:
+        '200':
+          description: 'User uploaded file.'
+      parameters:
+        - in: path
+          name: _model
+          description: Model name.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: _id
+          description: ObjectID of User.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: _fieldName
+          description: Field name.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                fieldName:
+                  type: string
+                  format: binary
+  /attachment/{_model}/{_id}/{_fieldName}/{_fileName}:
+    get:
+      tags:
+        - Attachment
+      summary: Download file from model.
+      operationId: downloadFile
+      description: Download file from model.
+      responses:
+        '200':
+          description: 'User downloaded file.'
+      parameters:
+        - in: path
+          name: _model
+          description: Model name.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: _id
+          description: ObjectID of User.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: _fieldName
+          description: Field name.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: _fileName
+          description: File name.
+          required: true
+          schema:
+            type: string
+  /attachment/array/{_model}/{_id}/{_fieldName}/{_index}:
+    post:
+      tags:
+        - Attachment
+      summary: Upload file in a field inside of array of objects.
+      operationId: uploadFileInArray
+      description: Upload file in a field inside of array of objects.
+      responses:
+        '200':
+          description: 'User uploaded file.'
+      parameters:
+        - in: path
+          name: _model
+          description: Model name.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: _id
+          description: ObjectID of User.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: _fieldName
+          description: Field name.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: _index
+          description: Index from array.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                fieldName:
+                  type: string
+                  format: binary
+  /attachment/array/{_model}/{_id}/{_fieldName}/{_index}/{_fileName}:
+    get:
+      tags:
+        - Attachment
+      summary: Download file from a field inside of array of objects.
+      operationId: downloadFileInArray
+      description: Download file from a field inside of array of objects.
+      responses:
+        '200':
+          description: 'User downloaded file.'
+      parameters:
+        - in: path
+          name: _model
+          description: Model name.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: _id
+          description: ObjectID of User.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: _fieldName
+          description: Field name.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: _index
+          description: Index from array.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: _fileName
+          description: File name.
+          required: true
+          schema:
+            type: string
+ 
+  /admin/users:
+    get:
+      tags:
+        - Admin
+      summary: View all users.
+      operationId: viewUsers
+      description: View all users from the database.
+      responses:
+        '200':
+          description: Total Count and Object/s in JSON format.
+        '400':
+          description: Invalid input.
+      parameters:
+        - in: query
+          name: key
+          description: Pass an optional key for looking up users. <code>value</code> must be supplied for it to work.
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: value
+          description: Pass an optional value for looking up users. <code>key</code> must be supplied for it to work.
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: advancedQuery
+          description: Pass an optional query string to show matching models. Make sure that your JSON Object is URIEncoded.
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sortBy
+          description: An optional query to sort data view by the passed value.
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: asc
+          description: Pass <code>1</code> if sort data in an ascending order, <code>0</code> if descending.
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 1
+        - in: query
+          name: total
+          description: Pass <code>true</code> to display count of results, <code>false</code> to hide.
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: start
+          description: Number of user records to skip for pagination.
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - in: query
+          name: count
+          description: Maximum number of user records to return.
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - in: query
+          name: dataview
+          description: Toggle user list view based on passed settings.
+          example: 'default'
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: search
+          description: Pass optional search string for looking up users from database.
+          required: false
+          schema:
+            type: string
+    post:
+      tags:
+        - Admin
+      summary: Creates a new user.
+      operationId: createUser
+      description: Creates a new user and adds it to the database.
+      responses:
+        '201':
+          description: User has been created.
+        '400':
+          description: User creation error.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/UserInfo'
+  /admin/users/{_userRole}:
+    get:
+      tags:
+        - Admin
+      summary: View all users with selected user role.
+      operationId: viewUsersWithRole
+      description: View all users with selected user role from the database.
+      parameters:
+        - in: path
+          name: _userRole
+          description: User's role.
+          required: true
+          schema:
+            $ref: '#/components/schemas/Roles'
+        - in: query
+          name: key
+          description: Pass an optional key for looking up users. <code>value</code> must be supplied for it to work.
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: value
+          description: Pass an optional value for looking up users. <code>key</code> must be supplied for it to work.
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: advancedQuery
+          description: Pass an optional query string to show matching models. Make sure that your JSON Object is URIEncoded.
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sortBy
+          description: An optional query to sort data view by the passed value.
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: asc
+          description: Pass <code>1</code> if sort data in an ascending order, <code>0</code> if descending.
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 1
+        - in: query
+          name: total
+          description: Pass <code>true</code> to display count of results, <code>false</code> to hide.
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: start
+          description: Number of user records to skip for pagination.
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - in: query
+          name: count
+          description: Maximum number of user records to return.
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - in: query
+          name: dataview
+          description: Toggle user list view based on passed settings.
+          example: 'default'
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: search
+          description: Pass optional search string for looking up users from database.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Total Count and Object/s in JSON format.
+        '400':
+          description: Invalid input.
+    post:
+      tags:
+        - Admin
+      summary: Creates a new user with selected role.
+      operationId: createUserWithRole
+      description: Creates a new user with selected role and adds it to the database.
+      parameters:
+        - in: path
+          name: _userRole
+          description: New user's role.
+          required: true
+          schema:
+            $ref: '#/components/schemas/Roles'
+      responses:
+        '201':
+          description: User has been created.
+        '400':
+          description: User creation error.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/UserInfo'
+  /admin/user/{_userRole}/{_id}:
+    get:
+      tags:
+        - Admin
+      summary: View user with user role and ID.
+      operationId: viewUser
+      description: View a specific user with user role and ID from the database.
+      parameters:
+        - in: path
+          name: _userRole
+          description: Pass user role.
+          required: true
+          schema:
+            $ref: '#/components/schemas/Roles'
+        - in: path
+          name: _id
+          description: Pass user ID.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Object/s in JSON format and update history.
+        '400':
+          description: Invalid input.
+    patch:
+      tags:
+        - Admin
+      summary: Updates user with user role and ID.
+      operationId: updateUser
+      description: Updates a specific user with user role and ID from the database.
+      parameters:
+        - in: path
+          name: _userRole
+          description: Pass user role.
+          required: true
+          schema:
+            $ref: '#/components/schemas/Roles'
+        - in: path
+          name: _id
+          description: Pass user ID.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User has been updated and Updated User in JSON format.
+        '400':
+          description: Invalid input.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/UserInfo'
+    delete:
+      tags:
+        - Admin
+      summary: Deletes user with user role and ID.
+      operationId: deleteUser
+      description: Deletes a specific user with user role and ID from the database.
+      parameters:
+        - in: path
+          name: _userRole
+          description: Pass user role.
+          required: true
+          schema:
+            $ref: '#/components/schemas/Roles'
+        - in: path
+          name: _id
+          description: Pass user ID.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'User has been deleted.'
+        '400':
+          description: Invalid input.
+  /admin/user/{_userRole}/{_id}/activate:
+    patch:
+      tags:
+        - Admin
+      summary: Activates a user.
+      operationId: activateUser
+      description: Activates user from the database.
+      parameters:
+        - in: path
+          name: _userRole
+          description: Pass user role.
+          required: true
+          schema:
+            $ref: '#/components/schemas/Roles'
+        - in: path
+          name: _id
+          description: Pass user ID.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User has been activated and activated user in JSON Object.
+        '400':
+          description: Invalid input.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                activationReason: 'Activated for some reason.'
+  /admin/user/{_userRole}/{_id}/deactivate:
+    patch:
+      tags:
+        - Admin
+      summary: Activates a user.
+      operationId: deactivateUser
+      description: Activates user from the database.
+      parameters:
+        - in: path
+          name: _userRole
+          description: Pass user role.
+          required: true
+          schema:
+            $ref: '#/components/schemas/Roles'
+        - in: path
+          name: _id
+          description: Pass user ID.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User has been deactivated and deactivated user in JSON Object.
+        '400':
+          description: Invalid input.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                deactivationReason: 'Deactivated for some reason.'
+  /config/roleaccess/session:
+    get:
+      tags:
+        - Role
+      summary: Check session privilege.
+      operationId: checkSessionPrivilege
+      description: Check session privilege from the database.
+      responses:
+        '200':
+          description: Object/s in JSON format.
+        '400':
+          description: Invalid input.
+  /config/roleaccess/{_userRole}:
+    get:
+      tags:
+        - Role
+      summary: View privilege summary of a user role.
+      operationId: viewRolePrivilege
+      description: View privilege summary of user role.
+      parameters:
+        - in: path
+          name: _userRole
+          description: Pass a user role to view privilege.
+          required: true
+          schema:
+            $ref: '#/components/schemas/Roles'
+      responses:
+        '200':
+          description: Object/s in JSON format.
+        '400':
+          description: Invalid input.
+    patch:
+      tags:
+        - Role
+      summary: Adds a privilege for a user role.
+      operationId: addRolePrivilege
+      description: Adds a privilege for a user role.
+      parameters:
+        - in: path
+          name: _userRole
+          description: Pass the user role to update.
+          required: true
+          schema:
+            $ref: '#/components/schemas/Roles'
+      responses:
+        '200':
+          description: User role named `_userRole` has been updated.
+        '400':
+          description: Invalid input.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                features: '/myprofile'
+                label: 'user'
+    delete:
+      tags:
+        - Role
+      summary: Deletes a user role.
+      operationId: deleteUserRole
+      description: Deletes a user role.
+      parameters:
+        - in: path
+          name: _userRole
+          description: Pass the user role to delete.
+          required: true
+          schema:
+            $ref: '#/components/schemas/Roles'
+      responses:
+        '200':
+          description: Object/s in JSON format.
+        '400':
+          description: Invalid input.
+  /config/roleaccess:
+    get:
+      tags:
+        - Role
+      summary: View all roles.
+      operationId: viewAllRoles
+      description: Views all roles from the database.
+      parameters:
+        - in: query
+          name: key
+          description: Pass an optional key for looking up roles. <code>value</code> must be supplied for it to work.
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: value
+          description: Pass an optional value for looking up roles. <code>key</code> must be supplied for it to work.
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: advancedQuery
+          description: Pass an optional query string to show matching roles. Make sure that your JSON Object is URIEncoded.
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sortBy
+          description: An optional query to sort data view by the passed value.
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: asc
+          description: Pass <code>1</code> if sort data in an ascending order, <code>0</code> if descending.
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 1
+        - in: query
+          name: total
+          description: Pass <code>true</code> to display count of results, <code>false</code> to hide.
+          required: false
+          schema:
+            type: boolean
+        - in: query
+          name: start
+          description: Number of records to skip for pagination.
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - in: query
+          name: count
+          description: Maximum number of records to return.
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - in: query
+          name: dataview
+          description: Toggle data view based on passed settings.
+          example: 'default'
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: search
+          description: Pass optional search string for looking up roles from database.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Total Count and Object/s in JSON format.
+        '400':
+          description: Invalid input.
+    post:
+      tags:
+        - Role
+      summary: Creates a new role with default privileges.
+      operationId: createUserRole
+      description: Creates a new role with default privileges and adds it to the database.
+      responses:
+        '201':
+          description: User role named `roleName` has been created.
+        '400':
+          description: User role creation error.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                {}
+  /sendEmail/requestAgency:
+    post:
+      tags:
+        - Send Email
+      summary: Request for Agency.
+      operationId: requestAgency
+      description: Upon signup, if the agency is not listed, request for an agency by sending a form. 
+      responses:
+        '200':
+          description: 'Request for agency creation has been sent to the admin(s).'
+        '400':
+          description: 'Error on sending an email.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+            example:
+              agencyName: 'My agency'
+              agencyType: 'Satellite'
+              agencyAcronym: 'MA'
+              addressLineOne: 'sample address line one'
+              addressLineTwo: 'sample address line two'
+              region: '60a227ddc3144638d89e101c'
+              province: '60a227ddc3144638d89e101e' 
+              cityOrMunicipality: '60a227ddc3144638d89e1021'
+              barangay: '60a227ddc3144638d89e1024'
+              postalCode: '2922'
+              emailAddress: 'sample@gmail.com'
+              landLineNo: '7891234'
+        description: Fill up the form to send a request of agency creation.

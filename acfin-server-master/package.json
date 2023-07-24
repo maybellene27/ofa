@@ -1,0 +1,72 @@
+{
+  "name": "acfin-server",
+  "version": "1.0.0",
+  "description": "ACFIN backend server",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect-mongo": "^3.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "error-handler": "git+https://tuklas-lunas:jAWSyTs6d4Tncj-LZwQz@repo.maroonstudios.com/maroon-studios/node-modules/error-handler#1.2.1",
+    "eslint": "^7.32.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "express-useragent": "^1.0.15",
+    "filer": "git+https://r4dis:zXFCiAysRHbDVofD6W3q@repo.maroonstudios.com/maroon-studios/node-modules/filer#1.3.1",
+    "fs": "0.0.1-security",
+    "helmet": "^4.5.0",
+    "http": "0.0.1-security",
+    "ip": "^1.1.5",
+    "jest": "^26.6.3",
+    "js-utils": "git+https://tuklas-lunas:rXtK9eJJoBKaBoYVZRtd@repo.maroonstudios.com/maroon-studios/node-modules/js-utils",
+    "lodash": "^4.17.21",
+    "mailer": "git+https://tuklas-lunas:Jush-BCmxL83utC1RGZ4@repo.maroonstudios.com/maroon-studios/node-modules/mailer.git",
+    "maroon-auth": "git+https://tuklas-lunas:UrMEJqLWsrvC68Ny3G1H@repo.maroonstudios.com/maroon-studios/node-modules/mongodb/maroon-auth#acfin-master",
+    "method-override": "^3.0.0",
+    "moment": "^2.29.1",
+    "mongo-sanitize": "^1.1.0",
+    "mongodb": "^5.1.0",
+    "mongodb-plugin": "git+https://tuklas-lunas:4KswwxhMu3hqTJWzbqiS@repo.maroonstudios.com//maroon-studios/node-modules/mongodb/mongodb-plugin#1.3.0",
+    "mongoose-autopopulate": "^0.14.0",
+    "mongoose-sequence": "^5.3.1",
+    "mongoose-update-versioning": "^0.1.1",
+    "morgan": "^1.10.0",
+    "node-cron": "^3.0.0",
+    "socket.io": "^4.1.2",
+    "supertest": "^6.1.3",
+    "xlsx-to-json-lc": "^0.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.18.37",
+    "chromedriver": "^92.0.1",
+    "eslint-plugin-jest": "^24.3.5",
+    "eslint-plugin-security": "^1.4.0",
+    "mocha": "^9.0.3",
+    "selenium-webdriver": "^4.0.0-beta.4"
+  },
+  "scripts": {
+    "test": "jest --detectOpenHandles --forceExit --coverage --verbose",
+    "test-cicd": "jest --detectOpenHandles --forceExit --coverage --verbose --ci --reporters='default' --reporters='jest-junit' --testResultsProcessor='jest-junit'",
+    "lint": "node_modules/eslint/bin/eslint.js .",
+    "seed-user-roles": "node ./tests/scripts/seed-roles",
+    "seed-locations": "node ./tests/scripts/seed-locations",
+    "seed-test-users": "node ./tests/scripts/seed-test-users",
+    "clear-data": "node ./tests/scripts/clear-data"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://repo.maroonstudios.com/maroon-studios/da-bar/r4dis-server"
+  },
+  "author": "Maroon Studios",
+  "license": "ISC",
+  "jest": {
+    "verbose": true,
+    "testTimeout": 1000000,
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/src/config/index.js",
+      "/tests"
+    ]
+  }
+}
