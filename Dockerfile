@@ -1,6 +1,13 @@
+FROM node:14 as npm6
+WORKDIR /app
+# Create a node project using npm 6 and install a dev dependency
+# that contains a binary.
+RUN npm init --yes && \
+    npm install --save-dev typescript
+
 FROM node:12.10.0 as build-stage
 WORKDIR /app
-COPY package*.json ./
+COPY --from=npm6
 RUN git config --global http.sslVerify false
 RUN npm install
 RUN git config --global http.sslVerify true
