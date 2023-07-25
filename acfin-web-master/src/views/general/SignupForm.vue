@@ -1,53 +1,62 @@
 <template>
-  <v-container flex>
-    <CrudForm
-      :key="operation"
-      v-bind="{
-        collectionName: 'users',
-        meta,
-        vuex: {
-          modules: ['users'],
-          fields: info
-        }
-      }"
-    />
-  </v-container>
+  <div>
+    <v-container
+      fluid
+      class="fill-height container"
+      width="50%"
+      flat
+      padless
+    >
+      <v-row class="message">
+        <v-col>
+          <p style="font-size:160%; font-weight: bold; color: black;">This site is under construction.</p>
+          <p>Please consult your Sales Executive or Sales Consultant. We apologize for the inconvenience.</p>
+        </v-col>
+      </v-row>
+      <v-row class="justify-center align-center">
+            <v-img
+              src="../../assets/honda.png"
+              max-height="250"
+              max-width="250"
+              class="ml-0 mr-n14"
+            />
+            <v-img
+              src="../../assets/isuzu.png"
+              max-height="250"
+              max-width="250"
+              class="ml-n15 mr-n14"
+            />
+            <v-img
+              src="../../assets/volkswagen.png"
+              max-height="250"
+              max-width="250"
+              class="ml-n15 mr-n14"
+            />
+            <v-img
+              src="../../assets/kia.png"
+              max-height="250"
+              max-width="250"
+              class="ml-n15 mr-n14"
+            />
+          </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script>
-import users from '@/store/users'
-import { CrudForm } from 'maroon-vue-components'
-import form from '@/meta/crudModules/general/signup/form'
-import { mapFields } from 'vuex-map-fields'
-
 export default {
-  name: 'UserSignup',
-  components: {
-    CrudForm
-  },
-  computed: {
-    ...mapFields('users', ['info']),
-    operation () {
-      return this.$route.params.operation
-    },
-    dataTab () {
-      return this.$route.params.userType
-    },
-    meta () {
-      return form
-    }
-  },
-  created () {
-    this.info.userRole = 'customer'
-    this.info.userType = 'External'
-  },
-  beforeCreate () {
-    if (!this.$store.hasModule('users')) {
-      this.$store.registerModule('users', users)
-    }
-  },
-  beforeDestroy () {
-    this.$store.dispatch('users/reset')
-  }
+  name: 'UserSignup'
 }
 </script>
+
+<style scoped>
+
+.message {
+  margin-top: 26px;
+  font-family:Bahnschrift Light;
+  font-size:120%;
+  text-align: center;
+  color: #A9A9A9;
+}
+
+</style>
