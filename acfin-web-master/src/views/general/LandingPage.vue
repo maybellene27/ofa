@@ -10,19 +10,24 @@
       <v-col>
         <v-row>
           <v-col class="title mt-10">
-            <h2>Welcome to <span>Online Financing Page!</span></h2>
           </v-col>
           <v-col class="mt-n3 mr-n3">
             <v-img
               src="../../assets/diagonal2.png"
               max-height="600"
-              max-width="200"
+              max-width="500"
               class="diagonal2"
             />
           </v-col>
         </v-row>
         <v-container>
-          <v-row class="cars">
+          <v-row class="message">
+            <v-col>
+              <p style="font-size:160%; font-weight: bold; color: black;">This site is under construction.</p>
+              <p>Please consult your Sales Executive or Sales Consultant. We apologize for the inconvenience.</p>
+            </v-col>
+          </v-row>
+          <v-row class="justify-center align-center">
             <v-img
               src="../../assets/honda.png"
               max-height="250"
@@ -45,114 +50,9 @@
               src="../../assets/kia.png"
               max-height="250"
               max-width="250"
-              class="ml-n15 mr-6"
+              class="ml-n15 mr-n14"
             />
-            <v-col class="ml-15">
-              <v-row>
-                <v-img
-                  src="../../assets/ACMotorsLogo.png"
-                  max-height="250"
-                  max-width="250"
-                  class="mb-5"
-                />
-              </v-row>
-              <v-row>
-                <v-btn
-                  elevation="2"
-                  x-large
-                  color="#F98F3E"
-                  height="60"
-                  width="300"
-                  class="white--text"
-                  @click="$router.push({ name: 'Login' })"
-                >
-                  Log In
-                </v-btn>
-              </v-row>
-              <v-row>
-                <v-btn
-                  elevation="2"
-                  x-large
-                  color="#005C9F"
-                  height="60"
-                  width="300"
-                  class="white--text"
-                  @click="$router.push({
-                    name: 'Signup',
-                    params: {
-                      operation: 'create'
-                    } })"
-                >
-                  Sign Up
-                </v-btn>
-              </v-row>
-            </v-col>
           </v-row>
-          <v-col class="banks">
-            <small>* Partner Banks</small>
-            <v-row class="mt-1">
-              <v-img
-                src="../../assets/bpi.png"
-                max-height="120"
-                max-width="120"
-                class="mx-5"
-              />
-              <v-img
-                src="../../assets/bdo.png"
-                max-height="20"
-                max-width="120"
-                class="mr-5 mt-4"
-              />
-              <v-img
-                src="../../assets/boc.png"
-                max-height="40"
-                max-width="250"
-                class="mr-5 mt-3"
-              />
-              <v-img
-                src="../../assets/eastwest.jpg"
-                max-height="30"
-                max-width="160"
-                class="mr-5 mt-3"
-              />
-            </v-row>
-            <v-row
-              class="ml-5"
-              align="start"
-              style="margin-top:-15px;"
-            >
-              <v-img
-                src="../../assets/cbs.jpg"
-                max-height="50"
-                max-width="150"
-                class="mr-5 mt-8"
-              />
-              <v-img
-                src="../../assets/psbank_logo.png"
-                max-height="40"
-                max-width="130"
-                class="mr-5 mt-8"
-              />
-              <v-img
-                src="../../assets/rcbc.jpeg"
-                max-height="70"
-                max-width="100"
-                class="mr-5 mt-4"
-              />
-              <v-img
-                src="../../assets/maybank.jpg"
-                max-height="80"
-                max-width="120"
-                class="mr-5 mt-4"
-              />
-              <v-img
-                src="../../assets/sb.png"
-                max-height="50"
-                max-width="180"
-                class="mr-5 mt-8"
-              />
-            </v-row>
-          </v-col>
         </v-container>
       </v-col>
       <v-footer
@@ -199,7 +99,7 @@ button:last-child { margin-top: 15px; }
 }
 
 .title {
-  margin-left: 100px;
+  margin-left: 70px;
   margin-top: 15px;
 }
 
@@ -212,9 +112,13 @@ button {
 
 .banks { margin-left: 250px; }
 
-.cars {
-  margin-top: -430px;
+.message {
+  margin-top: -500px;
   margin-left: 30px;
+  font-family:Bahnschrift Light;
+  font-size:120%;
+  text-align: center;
+  color: #A9A9A9;
 }
 
 small, h3 {
