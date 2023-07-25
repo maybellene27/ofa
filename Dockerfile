@@ -9,7 +9,7 @@ ARG webapi_domain
 ARG webapi_path
 ARG protocol
 ENV VUE_APP_BASEURL=${protocol}${webapi_domain}${webapi_path}
-CMD ["npm", "run", "build"]
+RUN npm run build
 
 FROM nginx as production-stage
 RUN mkdir /app
