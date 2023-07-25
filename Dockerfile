@@ -6,8 +6,8 @@ RUN npm init --yes && \
     npm install --save-dev typescript
 
 FROM node:12.10.0 as build-stage
-WORKDIR /app
 COPY --from=npm6
+WORKDIR /app
 RUN git config --global http.sslVerify false
 RUN npm install
 RUN git config --global http.sslVerify true
