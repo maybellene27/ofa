@@ -12,6 +12,6 @@ ENV VUE_APP_BASEURL=${protocol}${webapi_domain}${webapi_path}
 RUN npm run build
 
 FROM nginx as production-stage
-RUN mkdir /app
-COPY --from=build-stage /app/dist /app
+RUN mkdir /
+COPY --from=build-stage /app/dist /
 COPY nginx.conf /etc/nginx/nginx.conf
